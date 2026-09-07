@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTC Data</title>
+<meta name="description" content="FTC Data — análise de dados e reporting para resorts de golfe. Portugal.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:  #F2F4F1;
+    --ink:    #1C2321;
+    --muted:  #6B7570;
+    --rule:   #DCE0D9;
+    --brass:  #9A7B4F;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    min-height: 100svh;
+    padding: 6vh 8vw;
+  }
+
+  main {
+    max-width: 34rem;
+    animation: rise 900ms cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(0.75rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .mark {
+    width: 132px;
+    height: auto;
+    display: block;
+    margin-bottom: 2.75rem;
+  }
+
+  .descriptor {
+    font-family: "Newsreader", Georgia, serif;
+    font-weight: 300;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0 0 1.25rem;
+    max-width: 26rem;
+  }
+
+  .contact {
+    font-family: "Newsreader", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(1.75rem, 6vw, 2.875rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+
+  .contact a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.12em;
+    transition: border-color 200ms ease, color 200ms ease;
+  }
+
+  .contact a:hover,
+  .contact a:focus-visible {
+    color: var(--brass);
+    border-color: var(--brass);
+  }
+
+  .contact a:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    max-width: 26rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .lang {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+
+  .lang button {
+    font: inherit;
+    letter-spacing: inherit;
+    background: none;
+    border: 0;
+    padding: 0.15rem 0.1rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 200ms ease;
+  }
+
+  .lang button:hover { color: var(--ink); }
+
+  .lang button[aria-pressed="true"] {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .lang button:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .lang span { color: var(--rule); }
+
+  @media (prefers-reduced-motion: reduce) {
+    main { animation: none; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <img class="mark" src="logo.png" width="132" height="66" alt="FTC Data">
+
+  <p class="descriptor" data-pt="Análise de dados e reporting para resorts de golfe."
+                        data-en="Data analysis and reporting for golf resorts.">Análise de dados e reporting para resorts de golfe.</p>
+
+  <p class="contact"><a href="mailto:ftc@ftc-data.com">ftc@ftc-data.com</a></p>
+
+  <footer>
+    <span>Portugal</span>
+    <span class="lang">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <span>/</span>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </footer>
+</main>
+
+<script>
+  const descriptor = document.querySelector('.descriptor');
+  const buttons = document.querySelectorAll('.lang button');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const lang = button.dataset.lang;
+      descriptor.textContent = descriptor.dataset[lang];
+      document.documentElement.lang = lang;
+      buttons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+    });
+  });
+</script>
+
+</body>
+</html>
